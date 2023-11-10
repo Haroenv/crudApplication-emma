@@ -11,7 +11,6 @@ import { BlogPostDetailsComponent } from './components/blog-post-details/blog-po
 import { BlogPostsListComponent } from './components/blog-posts-list/blog-posts-list.component';
 
 @NgModule({
-  bootstrap: [AppComponent],
   declarations: [
     AppComponent,
     AddBlogPostComponent,
@@ -24,6 +23,7 @@ import { BlogPostsListComponent } from './components/blog-posts-list/blog-posts-
     FormsModule,
     HttpClientModule
   ],
-  providers: []
+  providers: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

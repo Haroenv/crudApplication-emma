@@ -1,0 +1,94 @@
+<div *ngIf="viewMode; else editable">
+  <div *ngIf="currentBlogPost.id">
+    <h4>BlogPost</h4>
+    <div>
+      <label><strong>Title:</strong></label> {{ currentBlogPost.title }}
+    </div>
+    <div>
+      <label><strong>Body:</strong></label>
+      {{ currentBlogPost.body }}
+    </div>
+    <div>
+      <label><strong>Status:</strong></label>
+      {{ currentBlogPost.published ? "Published" : "Pending" }}
+    </div>
+
+    <a
+      class="badge badge-warning"
+      routerLink="/blog-posts/{{ currentBlogPost.id }}"
+    >
+      Edit
+    </a>
+  </div>
+
+  <div *ngIf="!currentBlogPost">
+    <br />
+    <p>Please click on a Blog Post...</p>
+  </div>
+</div>
+
+<ng-template #editable>
+  <div *ngIf="currentBlogPost.id" class="edit-form">
+    <h4>Blog Post</h4>
+    <form>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          [(ngModel)]="currentBlogPost.title"
+          name="title"
+        />
+      </div>
+      <div class="form-group">
+        <label for="body">Body</label>
+        <input
+          type="text"
+          class="form-control"
+          id="body"
+          [(ngModel)]="currentBlogPost.body"
+          name="body"
+        />
+      </div>
+
+      <div class="form-group">
+        <label><strong>Status:</strong></label>
+        {{ currentBlogPost.published ? "Published" : "Pending" }}
+      </div>
+    </form>
+
+    <button
+      class="badge badge-primary mr-2"
+      *ngIf="currentBlogPost.published"
+      (click)="updatePublished(false)"
+    >
+      UnPublish
+    </button>
+    <button
+      *ngIf="!currentBlogPost.published"
+      class="badge badge-primary mr-2"
+      (click)="updatePublished(true)"
+    >
+      Publish
+    </button>
+
+    <button class="badge badge-danger mr-2" (click)="deleteBlogPost()">
+      Delete
+    </button>
+
+    <button
+      type="submit"
+      class="badge badge-success mb-2"
+      (click)="updateBlogPost()"
+    >
+      Update
+    </button>
+    <p>{{ message }}</p>
+  </div>
+
+  <div *ngIf="!currentBlogPost.id">
+    <br />
+    <p>Cannot access this blog post...</p>
+  </div>
+</ng-template>
